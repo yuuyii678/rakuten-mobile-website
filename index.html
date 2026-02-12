@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楽天モバイル・スタートガイド</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --noir: #0A0A0A;
+            --rakuten-pink: #FF00BC;
+            --rakuten-crimson: #BF0040;
+            --rakuten-accent: #FF1744;
+            --ivory: #FFFEF8;
+            --smoke: #FFF5F9;
+            --pink-light: #FFE5F4;
+            --shadow: rgba(191, 0, 64, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', -apple-system, sans-serif;
+            background: var(--ivory);
+            color: var(--noir);
+            line-height: 1.8;
+            font-weight: 300;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        /* Header - minimalist and elegant */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 240, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 0.7;
+        }
+
+        .logo-mark {
+            width: 2px;
+            height: 32px;
+            background: var(--rakuten-pink);
+            transform: skewX(-10deg);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--noir);
+        }
+
+        .home-btn {
+            background: transparent;
+            border: 1px solid var(--noir);
+            color: var(--noir);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-btn:hover {
+            background: var(--noir);
+            color: var(--ivory);
+            transform: rotate(180deg);
+        }
+
+        /* Page transitions */
+        .page-content {
+            display: none;
+            animation: elegantFade 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            padding-top: 80px;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes elegantFade {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero - editorial style */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            padding: 80px 48px;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--rakuten-pink);
+            margin-bottom: 32px;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .hero p {
+            font-size: 16px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 48px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 1px;
+            background: var(--rakuten-crimson);
+            margin: 32px auto 0;
+        }
+
+        /* Connection check - refined */
+        .connection-check {
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+
+        .connection-check a {
+            display: block;
+            text-align: center;
+            background: white;
+            border: 1px solid var(--noir);
+            color: var(--noir);
+            padding: 24px 40px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connection-check a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--noir);
+            transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: -1;
+        }
+
+        .connection-check a:hover {
+            color: white;
+        }
+
+        .connection-check a:hover::before {
+            left: 0;
+        }
+
+        /* Promo cards - luxe style */
+        .promo-cards {
+            display: grid;
+            gap: 32px;
+            margin-bottom: 120px;
+        }
+
+        .promo-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 48px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .promo-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--rakuten-pink);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .promo-card:hover {
+            box-shadow: 0 32px 64px var(--shadow);
+            transform: translateY(-8px);
+        }
+
+        .promo-card:hover::after {
+            transform: scaleY(1);
+        }
+
+        .promo-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+        }
+
+        .promo-left {
+            flex: 1;
+        }
+
+        .promo-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--rakuten-crimson);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .promo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--noir);
+            letter-spacing: -0.01em;
+        }
+
+        .promo-icon {
+            font-size: 48px;
+            opacity: 0.15;
+            transition: all 0.5s ease;
+        }
+
+        .promo-card:hover .promo-icon {
+            opacity: 0.3;
+            transform: scale(1.1);
+        }
+
+        /* Guide grid - sophisticated layout */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .guide-card {
+            background: white;
+            padding: 48px 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--smoke);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .guide-card:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .guide-card:hover {
+            transform: scale(1.02);
+        }
+
+        .guide-icon {
+            font-size: 56px;
+            margin-bottom: 24px;
+            display: block;
+            opacity: 0.8;
+            transition: transform 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .guide-card:hover .guide-icon {
+            transform: translateY(-4px);
+        }
+
+        .guide-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .guide-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--noir);
+            letter-spacing: -0.01em;
+        }
+
+        .guide-content p {
+            font-size: 13px;
+            font-weight: 300;
+            color: #666;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+        }
+
+        /* Subpage header */
+        .subpage-header {
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 120px 48px 48px;
+            margin-top: 80px;
+        }
+
+        .subpage-header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--noir);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-bottom: 32px;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 0.6;
+        }
+
+        .subpage-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            color: var(--noir);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .subpage-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 48px 120px;
+        }
+
+        /* Info boxes - elegant style */
+        .info-box {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-left: 3px solid var(--rakuten-pink);
+            padding: 32px 40px;
+            margin-bottom: 40px;
+        }
+
+        .info-box.warning {
+            border-left-color: #FF9100;
+            background: #FFF8F0;
+        }
+
+        .info-box.success {
+            border-left-color: #FF1744;
+            background: var(--smoke);
+        }
+
+        .info-box-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box-content {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .info-box-content strong {
+            font-weight: 500;
+        }
+
+        /* Feature box */
+        .feature-box {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 48px;
+            margin-bottom: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .feature-box:hover {
+            box-shadow: 0 16px 48px var(--shadow);
+        }
+
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            opacity: 0.8;
+        }
+
+        /* Steps - refined */
+        .steps {
+            margin: 48px 0;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 48px;
+            bottom: -48px;
+            width: 1px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--noir);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--noir);
+            letter-spacing: -0.01em;
+        }
+
+        .step-content p {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* CTA Button - luxe style */
+        .cta-button {
+            display: block;
+            width: 100%;
+            background: var(--noir);
+            color: white;
+            text-align: center;
+            padding: 24px 48px;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            margin-top: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--rakuten-pink), var(--rakuten-crimson));
+            transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Secondary button */
+        .secondary-button {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--noir);
+            color: var(--noir);
+            padding: 20px 32px;
+            font-weight: 500;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .secondary-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--noir);
+            transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 0;
+        }
+
+        .secondary-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .secondary-button:hover {
+            color: white;
+        }
+
+        .secondary-button:hover::before {
+            left: 0;
+        }
+
+        /* Table - minimalist */
+        .comparison-table {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            margin: 48px 0;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table thead {
+            background: var(--smoke);
+        }
+
+        .comparison-table th {
+            padding: 24px 24px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .comparison-table td {
+            padding: 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: var(--smoke);
+        }
+
+        .comparison-table .highlight-row {
+            background: linear-gradient(90deg, var(--pink-light) 0%, #FFFFFF 100%);
+            font-weight: 400;
+        }
+
+        .comparison-table .highlight-row:hover {
+            background: linear-gradient(90deg, var(--smoke) 0%, var(--pink-light) 100%);
+        }
+
+        .price-highlight {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--rakuten-crimson);
+            letter-spacing: -0.02em;
+        }
+
+        /* Link styles */
+        a.text-link {
+            color: var(--rakuten-crimson);
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        a.text-link:hover {
+            border-bottom-color: var(--rakuten-pink);
+            color: var(--rakuten-pink);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 20px 24px;
+            }
+
+            .container {
+                padding: 80px 24px;
+            }
+
+            .subpage-header {
+                padding: 100px 24px 32px;
+            }
+
+            .subpage-content {
+                padding: 60px 24px;
+            }
+
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .promo-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .feature-box,
+            .info-box {
+                padding: 32px 24px;
+            }
+
+            .hero-content {
+                padding: 60px 24px;
+            }
+        }
+
+        /* Utility */
+        .mb-32 { margin-bottom: 32px; }
+        .mb-48 { margin-bottom: 48px; }
+        .mt-48 { margin-top: 48px; }
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo" onclick="showPage('top')">
+                <div class="logo-mark"></div>
+                <span class="logo-text">Rakuten Mobile</span>
+            </div>
+            <button class="home-btn" onclick="showPage('top')">⌂</button>
+        </div>
+    </header>
+
+    <!-- TOP PAGE -->
+    <div id="page-top" class="page-content active">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-label">Start Guide</div>
+                <h1 class="serif">もう、迷わない。</h1>
+                <p>あなたにぴったりの手順を、エレガントにご案内します。</p>
+            </div>
+        </section>
+
+        <main class="container">
+            <h2 class="section-title serif">気になる項目を選んでください</h2>
+
+            <!-- Connection Check -->
+            <div class="connection-check">
+                <a href="https://network.mobile.rakuten.co.jp/area/?l-id=top_area-top_tokyo_pitari&s-id=top_area-top_tokyo_all" target="_blank">
+                    お家や職場でつながるかをチェック
+                </a>
+            </div>
+
+            <!-- Promo Cards -->
+            <div class="promo-cards">
+                <div class="promo-card" onclick="showPage('compare')">
+                    <div class="promo-content">
+                        <div class="promo-left">
+                            <span class="promo-label">Compare Prices</span>
+                            <div class="promo-title">3大キャリアとの料金差を、まず比較。</div>
+                        </div>
+                        <div class="promo-icon"><i class="fas fa-chart-bar"></i></div>
+                    </div>
+                </div>
+
+                <div class="promo-card" onclick="showPage('campaign')">
+                    <div class="promo-content">
+                        <div class="promo-left">
+                            <span class="promo-label">Limited Campaign</span>
+                            <div class="promo-title">紹介キャンペーンの詳細を確認する。</div>
+                        </div>
+                        <div class="promo-icon"><i class="fas fa-gift"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guide Cards Grid -->
+            <div class="guide-grid">
+                <div class="guide-card" onclick="showPage('p1')">
+                    <div class="guide-icon"><i class="fas fa-repeat"></i></div>
+                    <div class="guide-content">
+                        <h3>他社からお乗り換え</h3>
+                        <p>電話番号そのままで安くしたい方へ</p>
+                    </div>
+                </div>
+
+                <div class="guide-card" onclick="showPage('p2')">
+                    <div class="guide-icon"><i class="fas fa-mobile-screen"></i></div>
+                    <div class="guide-content">
+                        <h3>スマホも新しく購入</h3>
+                        <p>最新機種をお得に手に入れたい方へ</p>
+                    </div>
+                </div>
+
+                <div class="guide-card" onclick="showPage('p3')">
+                    <div class="guide-icon"><i class="fas fa-child-reaching"></i></div>
+                    <div class="guide-content">
+                        <h3>お子さまのスマホデビュー</h3>
+                        <p>安心・安全・安く持たせたい方へ</p>
+                    </div>
+                </div>
+
+                <div class="guide-card" onclick="showPage('p4')">
+                    <div class="guide-icon"><i class="fas fa-user-group"></i></div>
+                    <div class="guide-content">
+                        <h3>人生の大先輩（シニア）</h3>
+                        <p>難しい設定なしで使いこなしたい方へ</p>
+                    </div>
+                </div>
+
+                <div class="guide-card" onclick="showPage('p5')">
+                    <div class="guide-icon"><i class="fas fa-sim-card"></i></div>
+                    <div class="guide-content">
+                        <h3>2台目・サブ機をご検討</h3>
+                        <p>仕事用やタブレットなど賢い使い分け</p>
+                    </div>
+                </div>
+
+                <div class="guide-card" onclick="showPage('p6')">
+                    <div class="guide-icon"><i class="fas fa-wifi"></i></div>
+                    <div class="guide-content">
+                        <h3>家のWi-Fiをご利用</h3>
+                        <p>工事不要！データ無制限でネットを楽しむ</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Campaign Page -->
+    <div id="page-campaign" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">紹介キャンペーン詳細</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="info-box">
+                <div class="info-box-content">
+                    <strong>お乗り換えで14,000ポイント、新規ご契約で11,000ポイントプレゼント。</strong>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-list-check"></i></div>
+                    キャンペーンエントリー方法
+                </div>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>楽天IDでログインする</h4>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>紹介キャンペーンページに遷移すればエントリー完了です</h4>
+                            <p class="mt-48"><img src="shokai_cpn_lp.jpg" alt="紹介キャンペーンページキャプチャ" style="width: 100%; border: 1px solid rgba(0,0,0,0.1);"></p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>エントリー完了後は、サイトからのオンライン契約、楽天モバイルショップでの店頭契約のいずれも適用対象になります</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://r10.to/hNwXvB?openExternalBrowser=1" target="_blank" class="cta-button">
+                <span>キャンペーンのエントリーはこちら</span>
+            </a>
+
+            <div class="text-center mt-48">
+                <a href="#" onclick="showPage('top'); return false;" class="text-link">トップページに戻る</a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Comparison Page -->
+    <div id="page-compare" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">料金を比較する</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <h3 class="section-title serif" style="font-size: 32px;">無制限プランの月額料金を比較</h3>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>キャリア</th>
+                            <th>通常月額</th>
+                            <th>最安時</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>docomo</strong><br><small style="font-size: 12px; color: #999;">eximo</small></td>
+                            <td>7,315円</td>
+                            <td>4,928円</td>
+                        </tr>
+                        <tr>
+                            <td><strong>au</strong><br><small style="font-size: 12px; color: #999;">使い放題MAX</small></td>
+                            <td>7,238円</td>
+                            <td>4,928円</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SoftBank</strong><br><small style="font-size: 12px; color: #999;">メリハリ無制限+</small></td>
+                            <td>7,425円</td>
+                            <td>4,928円</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td><strong>楽天モバイル</strong><br><small style="font-size: 12px; color: #999;">最強プラン</small></td>
+                            <td><span class="price-highlight">3,278円</span></td>
+                            <td><span class="price-highlight">ずっと 3,278円</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mb-48">
+                <img src="mobile_price_competitor.jpg" alt="携帯キャリア料金プラン比較表" style="width: 100%; border: 1px solid rgba(0,0,0,0.1);">
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/fee/simulation/" target="_blank" class="secondary-button" style="display: block; text-align: center;">
+                <span>料金＆ポイントかんたんシミュレーション</span>
+            </a>
+
+            <div class="text-center mt-48">
+                <a href="#" onclick="showPage('top'); return false;" class="cta-button">
+                    <span>自分に合うガイドを探す</span>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- P1: Switch from other carrier -->
+    <div id="page-p1" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">他社からお乗り換えの方</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    お申し込みの共通ステップ
+                </div>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>楽天IDを用意する</h4>
+                            <p>楽天モバイルの契約には「楽天会員ID」が必須です。<br>
+                            <a href="https://www.rakuten.co.jp/myrakuten/help/" target="_blank" class="text-link">楽天会員に新規登録する（無料）</a></p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>公式サイトから申し込む</h4>
+                            <p>画面の指示に従って進むだけです。プラン選択、本人確認書類アップロード、受取方法の選択で完了。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/ad/lp/003/" target="_blank" class="cta-button">
+                <span>乗り換える</span>
+            </a>
+        </main>
+    </div>
+
+    <!-- P2: Buy new smartphone -->
+    <div id="page-p2" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">スマホも新しく購入</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="info-box success">
+                <div class="info-box-title">New Devices</div>
+                <div class="info-box-content">
+                    最新のiPhoneからお得なAndroidまで、豊富なラインアップから、あなたにぴったりの一台が必ず見つかります。
+                </div>
+            </div>
+
+            <div class="text-center mb-48">
+                <a href="https://network.mobile.rakuten.co.jp/product/?l-id=gnavi_product" target="_blank" class="secondary-button">
+                    <span>製品ラインアップを見る</span>
+                </a>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    お申し込みの共通ステップ
+                </div>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>楽天IDを用意する</h4>
+                            <p>楽天モバイルの契約には「楽天会員ID」が必須です。<br>
+                            <a href="https://www.rakuten.co.jp/myrakuten/help/" target="_blank" class="text-link">楽天会員に新規登録する（無料）</a></p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>公式サイトから申し込む</h4>
+                            <p>画面の指示に従って進むだけです。プラン選択、本人確認書類アップロード、受取方法の選択で完了。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/ad/lp/003/" target="_blank" class="cta-button">
+                <span>購入して申し込む</span>
+            </a>
+        </main>
+    </div>
+
+    <!-- P3: Kids smartphone -->
+    <div id="page-p3" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">お子さまのスマホデビューに</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="info-box warning">
+                <div class="info-box-title">Notice</div>
+                <div class="info-box-content">
+                    楽天モバイルには「キッズ携帯」という専用端末はありません。その代わりに、通常のスマホを<strong>「あんしんコントロール」</strong>で制限して安全に持たせるのが楽天スタイルです。
+                </div>
+            </div>
+
+            <div class="info-box success">
+                <div class="info-box-title">Kids Discount</div>
+                <div class="info-box-content">
+                    <p style="margin-bottom: 12px;">データ3GBまでなら、家族割引併用時で</p>
+                    <p style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--rakuten-crimson); margin-bottom: 12px; letter-spacing: -0.02em;">月額税込 528円</p>
+                    <p style="font-size: 13px; color: #666;">※12歳まで毎月最大440円引き（最強家族プログラム適用時）</p>
+                    <p style="margin-top: 24px;"><a href="https://network.mobile.rakuten.co.jp/fee/kids/?l-id=gnavi_fee_kids" target="_blank" class="text-link">最強子ども割の詳細を見る</a></p>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    あんしんコントロール
+                </div>
+                <p style="margin-bottom: 32px; font-weight: 300; line-height: 1.8;">未成年の方が安全にスマホを利用できるよう、Webフィルタリングサービス（i-フィルター）が法律で原則義務付けられています。月550円が3カ月無料。</p>
+
+                <div style="background: var(--smoke); padding: 32px; margin-bottom: 32px;">
+                    <h4 style="font-weight: 600; margin-bottom: 24px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;">主な見守り機能</h4>
+
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: white; padding: 24px; border: 1px solid rgba(0,0,0,0.05);">
+                            <p style="font-weight: 500; margin-bottom: 6px; font-size: 15px;">リアルタイム位置確認</p>
+                            <p style="font-size: 13px; font-weight: 300; color: #666; line-height: 1.7;">お子さまの場所を地図上に表示。見守りエリア通知も可能。</p>
+                        </div>
+                        <div style="background: white; padding: 24px; border: 1px solid rgba(0,0,0,0.05);">
+                            <p style="font-weight: 500; margin-bottom: 6px; font-size: 15px;">使用時間の制限</p>
+                            <p style="font-size: 13px; font-weight: 300; color: #666; line-height: 1.7;">スマホを使える時間帯や時間をアプリごとに設定できます。</p>
+                        </div>
+                        <div style="background: white; padding: 24px; border: 1px solid rgba(0,0,0,0.05);">
+                            <p style="font-weight: 500; margin-bottom: 6px; font-size: 15px;">アプリ利用の見守り</p>
+                            <p style="font-size: 13px; font-weight: 300; color: #666; line-height: 1.7;">不適切なサイトのブロックや利用状況を把握できます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; gap: 16px;">
+                    <a href="https://network.mobile.rakuten.co.jp/guide/anshin-control/" target="_blank" class="secondary-button" style="display: block; text-align: center;">
+                        <span>あんしんコントロールについて詳しくみる</span>
+                    </a>
+                    <a href="https://network.mobile.rakuten.co.jp/guide/anshin-control/user-manual/" target="_blank" class="secondary-button" style="display: block; text-align: center;">
+                        <span>初期設定マニュアルはこちら</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-circle-info"></i></div>
+                    未成年のお子さまのお申し込み
+                </div>
+                <p style="margin-bottom: 32px; font-weight: 300; line-height: 1.8;">未成年のお子さまでもご本人名義での契約が必要です。下記をご用意ください。</p>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>お子さまの楽天ID・本人確認書類</h4>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>法定代理人同意書 兼 支払名義人同意書</h4>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>クレジットカードまたは銀行口座</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://network.mobile.rakuten.co.jp/flow/for-minors/?l-id=fee_kids_flow_for-minors" target="_blank" class="secondary-button" style="display: block; text-align: center; margin-top: 32px;">
+                    <span>お申し込みの流れを詳しく見る</span>
+                </a>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/ad/lp/003/" target="_blank" class="cta-button">
+                <span>楽天モバイルを申し込む</span>
+            </a>
+        </main>
+    </div>
+
+    <!-- P4: Senior -->
+    <div id="page-p4" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">人生の大先輩（シニア）の方へ</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="info-box success">
+                <div class="info-box-title">Senior Program</div>
+                <div class="info-box-content">
+                    <p style="margin-bottom: 20px;">スマホ代もオプションパックもどちらもお得になるプランをご用意。</p>
+                    <a href="https://network.mobile.rakuten.co.jp/fee/senior/" target="_blank" class="text-link">最強シニアプログラムの詳細を見る</a>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                    シニアに嬉しいポイント
+                </div>
+
+                <div style="display: grid; gap: 32px;">
+                    <div style="display: flex; gap: 20px; align-items: start;">
+                        <div style="font-size: 32px; opacity: 0.6; color: var(--rakuten-pink);"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <p style="font-weight: 500; margin-bottom: 8px; font-size: 16px;">通話料もお得</p>
+                            <p style="font-size: 14px; font-weight: 300; color: #666; line-height: 1.8;">Rakuten Linkアプリを使えば、国内通話が15分まで無料でかけ放題。</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: start;">
+                        <div style="font-size: 32px; opacity: 0.6; color: var(--rakuten-pink);"><i class="fas fa-store"></i></div>
+                        <div>
+                            <p style="font-weight: 500; margin-bottom: 8px; font-size: 16px;">安心の店舗サポート</p>
+                            <p style="font-size: 14px; font-weight: 300; color: #666; line-height: 1.8;">全国の楽天モバイルショップで、契約や操作の相談ができます。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    お申し込みの共通ステップ
+                </div>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>楽天IDを用意する</h4>
+                            <p>楽天モバイルの契約には「楽天会員ID」が必須です。<br>
+                            <a href="https://www.rakuten.co.jp/myrakuten/help/" target="_blank" class="text-link">楽天会員に新規登録する（無料）</a></p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>公式サイトから申し込む</h4>
+                            <p>画面の指示に従って進むだけです。プラン選択、本人確認書類アップロード、受取方法の選択で完了。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/ad/lp/003/" target="_blank" class="cta-button">
+                <span>楽天モバイルを申し込む</span>
+            </a>
+        </main>
+    </div>
+
+    <!-- P5: Second device -->
+    <div id="page-p5" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">2台目・サブ機をご検討</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="info-box success">
+                <div class="info-box-title">Dual SIM</div>
+                <div class="info-box-content">
+                    <p style="margin-bottom: 20px;">今のスマホをそのままに、楽天モバイルを2つ目の回線として追加。<strong>1つのスマホで2つの電話番号や通信回線</strong>を自由に使い分けられます。</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0;">
+                        <div style="background: white; padding: 16px; border: 1px solid rgba(0,0,0,0.1);">
+                            <p style="font-size: 13px; font-weight: 500;">仕事用番号をスマホ1台で</p>
+                        </div>
+                        <div style="background: white; padding: 16px; border: 1px solid rgba(0,0,0,0.1);">
+                            <p style="font-size: 13px; font-weight: 500;">通信コストを賢く削減</p>
+                        </div>
+                    </div>
+
+                    <a href="https://network.mobile.rakuten.co.jp/product/sim/dual-sim/?l-id=gnavi_product_sim_dual-sim" target="_blank" class="text-link">デュアルSIMの詳細・設定ガイド</a>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    お申し込みの共通ステップ
+                </div>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>楽天IDを用意する</h4>
+                            <p>楽天モバイルの契約には「楽天会員ID」が必須です。<br>
+                            <a href="https://www.rakuten.co.jp/myrakuten/help/" target="_blank" class="text-link">楽天会員に新規登録する（無料）</a></p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>公式サイトから申し込む</h4>
+                            <p>画面の指示に従って進むだけです。プラン選択、本人確認書類アップロード、受取方法の選択で完了。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/ad/lp/003/" target="_blank" class="cta-button">
+                <span>楽天モバイルを申し込む</span>
+            </a>
+        </main>
+    </div>
+
+    <!-- P6: Home WiFi -->
+    <div id="page-p6" class="page-content">
+        <div class="subpage-header">
+            <div class="subpage-header-inner">
+                <a href="#" onclick="showPage('top'); return false;" class="back-btn">← Back</a>
+                <h2 class="subpage-title serif">家のWi-Fiをご利用</h2>
+            </div>
+        </div>
+
+        <main class="subpage-content">
+            <div class="text-center mb-48">
+                <h3 class="serif" style="font-size: 36px; margin-bottom: 20px; letter-spacing: -0.02em;">工事不要！すぐに使えるおうちのWi-Fi</h3>
+                <p style="color: #666; font-weight: 300; margin-bottom: 40px; line-height: 1.8;">コンセントに挿すだけで、届いたその日から高速インターネットが使い放題。</p>
+
+                <div style="background: var(--smoke); padding: 40px; margin-bottom: 40px;">
+                    <p style="font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 12px;">Rakuten Turbo</p>
+                    <p style="font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; color: var(--rakuten-crimson); line-height: 1; letter-spacing: -0.02em;">4,840<span style="font-size: 20px; font-weight: 400; color: #666;">円/月</span></p>
+                </div>
+            </div>
+
+            <div style="display: grid; gap: 32px; margin-bottom: 48px;">
+                <div class="feature-box">
+                    <div class="feature-title" style="font-size: 24px;">
+                        <div class="feature-icon" style="font-size: 32px;"><i class="fas fa-star"></i></div>
+                        最強おうちプログラム
+                    </div>
+                    <p style="font-weight: 500; margin-bottom: 20px; font-size: 16px;">永年毎月1,000ポイント還元</p>
+                    <a href="https://network.mobile.rakuten.co.jp/internet/turbo/campaign/home-internet/?l-id=rmt_campaign_home-internet_ouchi-program01" target="_blank" class="text-link">最強おうちプログラムを詳しく見る</a>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-title" style="font-size: 24px;">
+                        <div class="feature-icon" style="font-size: 32px;"><i class="fas fa-tag"></i></div>
+                        製品代実質0円キャンペーン
+                    </div>
+                    <p style="font-weight: 500; margin-bottom: 20px; font-size: 16px;">製品代41,580円が実質0円</p>
+                    <a href="https://network.mobile.rakuten.co.jp/internet/turbo/campaign/home-internet/?l-id=rmt_campaign_home-internet_turbo-cpn#fee" target="_blank" class="text-link">製品代実質０円キャンペーンを詳しく見る</a>
+                </div>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/internet/turbo/?l-id=gnavi_internet_turbo" target="_blank" class="secondary-button" style="display: block; text-align: center; margin-bottom: 32px;">
+                <span>Rakuten Turboの詳細を見る</span>
+            </a>
+
+            <div class="feature-box">
+                <div class="feature-title">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    お申し込みの共通ステップ
+                </div>
+
+                <div class="steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>楽天IDを用意する</h4>
+                            <p>楽天モバイルの契約には「楽天会員ID」が必須です。<br>
+                            <a href="https://www.rakuten.co.jp/myrakuten/help/" target="_blank" class="text-link">楽天会員に新規登録する（無料）</a></p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>公式サイトから申し込む</h4>
+                            <p>画面の指示に従って進むだけです。プラン選択、本人確認書類アップロード、受取方法の選択で完了。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://network.mobile.rakuten.co.jp/internet/turbo/application/?l-id=rmt_fixedbtn_application_01" target="_blank" class="cta-button">
+                <span>楽天Turboを申し込む</span>
+            </a>
+        </main>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(p => {
+                p.classList.remove('active');
+                p.style.display = 'none';
+            });
+
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.style.display = 'block';
+                setTimeout(() => target.classList.add('active'), 10);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('top');
+        });
+    </script>
+</body>
+</html>
