@@ -355,6 +355,67 @@
             transform: scale(1.1);
         }
 
+        /* Campaign card - special highlight */
+        .promo-card.campaign-highlight {
+            background: linear-gradient(135deg, #FFF0F8 0%, #FFE5F4 100%);
+            position: relative;
+            border: 2px solid rgba(255, 0, 188, 0.3);
+        }
+
+        .promo-card.campaign-highlight::after {
+            display: none;
+        }
+
+        .promo-card.campaign-highlight:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 32px 64px rgba(255, 0, 188, 0.25);
+        }
+
+        .promo-card.campaign-highlight .promo-label {
+            background: var(--rakuten-pink);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 11px;
+            box-shadow: 0 4px 12px rgba(255, 0, 188, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-card.campaign-highlight .promo-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .promo-card.campaign-highlight .promo-title {
+            color: var(--noir);
+            font-size: 26px;
+        }
+
+        .promo-card.campaign-highlight .promo-icon {
+            color: var(--rakuten-pink);
+            opacity: 0.7;
+            filter: drop-shadow(0 2px 4px rgba(255, 0, 188, 0.2));
+        }
+
+        .promo-card.campaign-highlight:hover .promo-icon {
+            opacity: 0.9;
+            transform: scale(1.15) rotate(-5deg);
+        }
+
         /* Guide grid - sophisticated layout */
         .guide-grid {
             display: grid;
@@ -839,7 +900,7 @@
                     </div>
                 </div>
 
-                <div class="promo-card" onclick="showPage('campaign')">
+                <div class="promo-card campaign-highlight" onclick="showPage('campaign')">
                     <div class="promo-content">
                         <div class="promo-left">
                             <span class="promo-label">Limited Campaign</span>
